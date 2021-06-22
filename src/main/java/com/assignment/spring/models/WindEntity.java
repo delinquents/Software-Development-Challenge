@@ -1,5 +1,6 @@
 package com.assignment.spring.models;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,28 +8,24 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "weather")
-public class WeatherEntity {
+@Table(name = "wind")
+public class WindEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable=false)
-    private String city;
+    @Column(name="speed")
+    private Double speed;
 
-    @Column(nullable=false)
-    private String country;
+    @Column(name="deg")
+    private Integer deg;
 
-    private Long visibility;
-
-    private Double temperature;
-
-    private String description;
+    private Integer weatherId;
 
 }

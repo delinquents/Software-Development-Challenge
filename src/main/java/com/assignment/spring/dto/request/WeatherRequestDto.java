@@ -13,5 +13,7 @@ public class WeatherRequestDto {
     private Integer id;
     private String city;
     private String country;
+    private String description;
+    private Long visibility;
     private Double temperature;
 }
