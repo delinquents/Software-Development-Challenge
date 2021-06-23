@@ -4,11 +4,14 @@ import com.assignment.spring.api.endpoints.WeatherApi;
 import com.assignment.spring.constants.Constants;
 import com.assignment.spring.dto.request.WeatherRequestDto;
 import com.assignment.spring.dto.response.WeatherResponseDto;
+import com.assignment.spring.mapper.CoordMappper;
 import com.assignment.spring.mapper.WeatherMapper;
 import com.assignment.spring.mapper.WindMapper;
+import com.assignment.spring.models.CoordEntity;
 import com.assignment.spring.models.WeatherEntity;
 import com.assignment.spring.api.WeatherResponse;
 import com.assignment.spring.models.WindEntity;
+import com.assignment.spring.services.CoordService;
 import com.assignment.spring.services.WeatherService;
 import com.assignment.spring.services.WindService;
 import lombok.AllArgsConstructor;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,12 +37,13 @@ import java.util.Objects;
 @Slf4j
 public class WeatherController implements WeatherApi {
 
-
     private RestTemplate restTemplate;
     private WeatherMapper weatherMapper;
     private WindMapper windMapper;
+    private CoordMappper coordMappper;
     private WeatherService weatherService;
     private WindService windService;
+    private CoordService coordService;
 
     public ResponseEntity<Object> weather(HttpServletRequest request, @RequestParam("city") String city ) {
         try {
@@ -49,10 +54,11 @@ public class WeatherController implements WeatherApi {
                 ResponseEntity<WeatherResponse> response = restTemplate.getForEntity(url, WeatherResponse.class);
                 WeatherEntity weatherEntity = weatherService.saveWeather(weatherMapper.mapToEntity(Objects.requireNonNull(response.getBody())));
                 WindEntity windEntity = windService.saveWeather(windMapper.mapToEntity(Objects.requireNonNull(response.getBody())));
-                return new ResponseEntity<> (weatherMapper.mapToResponseFromEntity(weatherEntity, windEntity), HttpStatus.OK);}
+                CoordEntity coordEntity = coordService.saveWeather(coordMappper.mapToEntity(Objects.requireNonNull(response.getBody()),weatherEntity));
+                return new ResponseEntity<> (weatherMapper.mapToResponseFromEntity(weatherEntity, windEntity, coordEntity), HttpStatus.OK);}
         } catch (Exception e) {
-                log.error(e.getCause().getCause().getMessage());
-                return new ResponseEntity<> (e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            log.error(e.getCause().getCause().getMessage());
+            return new ResponseEntity<> (e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -64,14 +70,14 @@ public class WeatherController implements WeatherApi {
         return new ResponseEntity<> ("No content", HttpStatus.NO_CONTENT);
     }
 
-    public ResponseEntity<Object> updateWeather(@RequestBody WeatherRequestDto requestDto) {
+    public ResponseEntity<Object> updateWeather(@Valid @RequestBody WeatherRequestDto requestDto) {
         try {
-             WeatherEntity response = weatherService.findWeatherByWeatherId(requestDto.getId());
-             if (response == null) {
+            WeatherEntity response = weatherService.findWeatherByWeatherId(requestDto.getId());
+            if (response == null) {
                 return new ResponseEntity<> ("There is no weather by given city id", HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<> (weatherService.saveWeather(weatherMapper.mapToEntityFromRequestDto(requestDto)), HttpStatus.OK);
-             }
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<> (e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,6 +89,7 @@ public class WeatherController implements WeatherApi {
             if (weatherService.findWeatherByWeatherId(weatherId) == null) {
                 return new ResponseEntity<> (HttpStatus.NO_CONTENT);
             } else {
+                coordService.deleteCoordByWeatherId(weatherId);
                 weatherService.deleteByWeatherId(weatherId);
                 windService.deleteWindByWeatherId(weatherId);
                 return new ResponseEntity<> ("Weather by given city deleted successfully.", HttpStatus.OK);
@@ -98,7 +105,7 @@ public class WeatherController implements WeatherApi {
     }
 
     public ResponseEntity<Object> getTop3ColdestCitiesInCountry(@RequestParam("country") String country) {
-        return new ResponseEntity<> (weatherService.getWarmestCitiesInCountry(country), HttpStatus.OK);
+        return new ResponseEntity<> (weatherService.getColdestCitiesInCountry(country), HttpStatus.OK);
     }
 }
 

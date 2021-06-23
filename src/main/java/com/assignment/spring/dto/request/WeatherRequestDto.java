@@ -16,4 +16,5 @@ public class WeatherRequestDto {
     private String description;
     private Long visibility;
     private Double temperature;
+    private Integer cod;
 }

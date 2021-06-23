@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
         "wind",
         "visibility",
         "description",
+        "cod",
 })
 public class WeatherResponseDto {
     private Integer id;
@@ -30,6 +31,8 @@ public class WeatherResponseDto {
     private Long visibility;
     private Double temperature;
     private WindResponseDto wind;
+    private CoordResponseDto coord;
+    private Integer cod;
 
     public WeatherResponseDto(String city, String description, Double temperature) {
         this.city = city;
