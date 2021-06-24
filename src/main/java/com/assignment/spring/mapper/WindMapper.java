@@ -1,8 +1,8 @@
 package com.assignment.spring.mapper;
 
-import com.assignment.spring.api.WeatherResponse;
+import com.assignment.spring.api.templates.WeatherResponse;
 
-import com.assignment.spring.models.WindEntity;
+import com.assignment.spring.models.entities.WindEntity;
 import org.springframework.stereotype.Component;
 
 @Component

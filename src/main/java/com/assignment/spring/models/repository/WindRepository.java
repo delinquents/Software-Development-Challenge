@@ -1,6 +1,6 @@
-package com.assignment.spring.repository;
+package com.assignment.spring.models.repository;
 
-import com.assignment.spring.models.WindEntity;
+import com.assignment.spring.models.entities.WindEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -2,15 +2,15 @@ package com.assignment.spring.controllers;
 
 import com.assignment.spring.api.endpoints.WeatherApi;
 import com.assignment.spring.constants.Constants;
-import com.assignment.spring.dto.request.WeatherRequestDto;
-import com.assignment.spring.dto.response.WeatherResponseDto;
+import com.assignment.spring.ui.dto.request.WeatherRequestDto;
+import com.assignment.spring.ui.dto.response.WeatherResponseDto;
 import com.assignment.spring.mapper.CoordMappper;
 import com.assignment.spring.mapper.WeatherMapper;
 import com.assignment.spring.mapper.WindMapper;
-import com.assignment.spring.models.CoordEntity;
-import com.assignment.spring.models.WeatherEntity;
-import com.assignment.spring.api.WeatherResponse;
-import com.assignment.spring.models.WindEntity;
+import com.assignment.spring.models.entities.CoordEntity;
+import com.assignment.spring.models.entities.WeatherEntity;
+import com.assignment.spring.api.templates.WeatherResponse;
+import com.assignment.spring.models.entities.WindEntity;
 import com.assignment.spring.services.CoordService;
 import com.assignment.spring.services.WeatherService;
 import com.assignment.spring.services.WindService;
@@ -23,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

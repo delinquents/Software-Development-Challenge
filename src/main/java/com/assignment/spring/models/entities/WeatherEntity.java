@@ -1,4 +1,4 @@
-package com.assignment.spring.models;
+package com.assignment.spring.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Data
@@ -35,11 +36,13 @@ public class WeatherEntity {
 
     private Double temperature;
 
-    @NotBlank(message = "Description is mandatory")
-    private String description;
+    @OneToMany(mappedBy="weather", cascade = CascadeType.ALL)
+    private List<WeatherInfoEntity> weatherInfos;
 
     private Integer cod;
 
 
-
+    public WeatherEntity(Integer id) {
+        this.id = id;
+    }
 }

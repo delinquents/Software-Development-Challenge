@@ -1,7 +1,7 @@
 package com.assignment.spring.services;
 
-import com.assignment.spring.dto.response.WeatherResponseDto;
-import com.assignment.spring.models.WeatherEntity;
+import com.assignment.spring.ui.dto.response.WeatherResponseDto;
+import com.assignment.spring.models.entities.WeatherEntity;
 
 import java.util.List;
 

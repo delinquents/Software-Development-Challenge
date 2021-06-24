@@ -1,8 +1,8 @@
 package com.assignment.spring.services.impl;
 
 
-import com.assignment.spring.models.WindEntity;
-import com.assignment.spring.repository.WindRepository;
+import com.assignment.spring.models.entities.WindEntity;
+import com.assignment.spring.models.repository.WindRepository;
 import com.assignment.spring.services.WindService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

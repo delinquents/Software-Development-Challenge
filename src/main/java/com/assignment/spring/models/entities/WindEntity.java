@@ -1,4 +1,4 @@
-package com.assignment.spring.models;
+package com.assignment.spring.models.entities;
 
 
 import lombok.AllArgsConstructor;

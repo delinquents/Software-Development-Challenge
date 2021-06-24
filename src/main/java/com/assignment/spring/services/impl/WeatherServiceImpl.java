@@ -1,9 +1,9 @@
 package com.assignment.spring.services.impl;
 
-import com.assignment.spring.dto.response.WeatherResponseDto;
-import com.assignment.spring.dto.response.WindResponseDto;
-import com.assignment.spring.models.WeatherEntity;
-import com.assignment.spring.repository.WeatherRepository;
+import com.assignment.spring.ui.dto.response.WeatherResponseDto;
+import com.assignment.spring.ui.dto.response.WindResponseDto;
+import com.assignment.spring.models.entities.WeatherEntity;
+import com.assignment.spring.models.repository.WeatherRepository;
 import com.assignment.spring.services.WeatherService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -41,12 +41,11 @@ public class WeatherServiceImpl implements WeatherService {
                    .id((Integer) x[0])
                    .city((String) x[1])
                    .country((String) x[2])
-                   .description((String) x[3])
-                   .temperature((Double) x[4])
-                   .visibility((Long) x[5])
+                   .temperature((Double) x[3])
+                   .visibility((Long) x[4])
                    .wind(WindResponseDto.builder()
-                           .speed((Double) x[6])
-                           .deg((Integer) x[7]).build())
+                           .speed((Double) x[5])
+                           .deg((Integer) x[6]).build())
                    .build());
        });
         return responseDtos;

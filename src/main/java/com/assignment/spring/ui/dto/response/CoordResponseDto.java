@@ -1,4 +1,4 @@
-package com.assignment.spring.dto.response;
+package com.assignment.spring.ui.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

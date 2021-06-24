@@ -1,4 +1,4 @@
-package com.assignment.spring.dto.request;
+package com.assignment.spring.ui.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
